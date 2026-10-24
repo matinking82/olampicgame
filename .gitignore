@@ -1,0 +1,19 @@
+# Godot 4+ specific ignores
+.godot/
+
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+# Godot-specific ignores (compatibility retention)
+.import/
+export.cfg
+export_presets.cfg
+
+# Mono/C# specific ignores (if using C#)
+.mono/
+data_*/
+mono_crash.*.json
+
+# System files
+.DS_Store
+Thumbs.db
