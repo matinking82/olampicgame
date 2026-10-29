@@ -127,5 +127,5 @@ func return_node(i: int, n: PieceNode) -> void:
 ## Greys out pieces that can't go anywhere, even rotated.
 func update_fit(state: GameState) -> void:
 	for i in 3:
-		if nodes[i] != null:
+		if nodes[i] != null and state.piece(i) != null:
 			nodes[i].set_dimmed(not Rules.fits_any_rotation(state.board, state.piece(i)))

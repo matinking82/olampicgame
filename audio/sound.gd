@@ -42,6 +42,8 @@ var _layer_on: Array[bool] = [true, false, false]
 var _duck_tween: Tween
 var _music_db := 0.0
 var _music_set: Array = []
+## The trailer holds one soundtrack at full blast; games can't switch it.
+var pinned := false
 
 
 func _ready() -> void:
@@ -99,7 +101,7 @@ func note_later(delay: float, index: int, volume_db: float = 0.0) -> void:
 ## Starts a soundtrack (ARCADE_MUSIC, CHESS_MUSIC or DICE_MUSIC) from the calm layer.
 ## Does nothing if it's already playing.
 func start_music(layers: Array = ARCADE_MUSIC) -> void:
-	if layers == _music_set:
+	if layers == _music_set or pinned:
 		return
 	_music_set = layers
 	for i in _music.size():
@@ -118,6 +120,8 @@ func start_music(layers: Array = ARCADE_MUSIC) -> void:
 ## streak, and the drums and bass join from a big streak or Fever.
 func set_intensity(streak: int, fever: bool) -> void:
 	var want: Array[bool] = [true, streak >= 2 or fever, streak >= 4 or fever]
+	if pinned:
+		want = [true, true, true]
 	if want != _layer_on:
 		_layer_on = want
 		_apply_layers(1.2)
